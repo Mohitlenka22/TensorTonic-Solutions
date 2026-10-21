@@ -3,7 +3,9 @@
 __global__ void vector_add(const float* A, const float* B, float* C, int N) {
     // Store N element-wise results in C; this kernel returns no value.
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    C[idx] = A[idx] + B[idx];
+    if (idx < N) {
+        C[idx] = A[idx] + B[idx];
+    }
 }
 
 extern "C" void solve(const float* A, const float* B, float* C, int N) {
